@@ -1,0 +1,238 @@
+.app {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #dbcc06 0%, #ff0051 100%);
+  animation: bg-move 10s ease-in-out infinite alternate;
+}
+
+@keyframes bg-move {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+.canvas-container {
+  width: 100%;
+  height: 70vh;
+  margin-bottom: 2rem;
+}
+
+.water-button {
+  padding: 1.1rem 2.5rem;
+  font-size: 1.3rem;
+  background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%);
+  color: #fff;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  font-weight: 600;
+  box-shadow: 0 2px 16px rgba(67, 233, 123, 0.15);
+  transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+  margin-bottom: 1.5rem;
+}
+
+.water-button:hover:not(:disabled) {
+  background: linear-gradient(90deg, #38f9d7 0%, #43e97b 100%);
+  transform: scale(1.06) translateY(-2px);
+  box-shadow: 0 4px 32px rgba(67, 233, 123, 0.25);
+}
+
+.water-button:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+  color: #fff;
+  opacity: 0.7;
+}
+
+.info {
+  margin-top: 0.5rem;
+  text-align: center;
+  font-size: 1.15rem;
+  color: #333;
+  background: rgba(255,255,255,0.7);
+  border-radius: 16px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  padding: 1.2rem 2.2rem;
+  display: inline-block;
+  min-width: 220px;
+  font-family: 'Segoe UI', 'Arial', sans-serif;
+  transition: box-shadow 0.3s;
+}
+
+.info p {
+  margin: 0.5rem 0;
+  font-size: 1.08rem;
+}
+
+.image-container {
+  width: 350px;
+  height: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+  background: rgba(255,255,255,0.3);
+  border-radius: 50%;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  position: relative;
+  overflow: hidden;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: filter 0.5s, opacity 0.5s, box-shadow 0.5s, transform 0.5s;
+  box-shadow: 0 4px 24px rgba(255, 0, 100, 0.12);
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px) scale(1); }
+  50% { transform: translateY(-18px) scale(1.04); }
+  100% { transform: translateY(0px) scale(1); }
+}
+
+.wilted {
+  filter: grayscale(0.8) brightness(0.7) blur(1px);
+  opacity: 0.6;
+}
+
+.flower-select {
+  display: flex;
+  gap: 1.2rem;
+  margin-bottom: 1.2rem;
+}
+.flower-select button {
+  background: none;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  width: 64px;
+  height: 64px;
+  padding: 0;
+  cursor: pointer;
+  transition: border 0.3s, box-shadow 0.3s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  overflow: hidden;
+}
+.flower-select button.selected {
+  border: 2.5px solid #00e6ff;
+  box-shadow: 0 0 16px #00e6ff44;
+}
+.flower-select img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.flower-name-input {
+  margin-bottom: 1.1rem;
+  padding: 0.7rem 1.2rem;
+  border-radius: 12px;
+  border: 1.5px solid #eee;
+  font-size: 1.1rem;
+  outline: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  transition: border 0.2s;
+  text-align: center;
+  font-family: inherit;
+}
+.flower-name-input:focus {
+  border: 1.5px solid #00e6ff;
+}
+
+.share-btn {
+  margin-bottom: 1.2rem;
+  background: linear-gradient(90deg, #ff0051 0%, #dbcc06 100%);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 0.7rem 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 12px rgba(255,0,81,0.10);
+  transition: background 0.3s, transform 0.2s;
+}
+.share-btn:hover {
+  background: linear-gradient(90deg, #dbcc06 0%, #ff0051 100%);
+  transform: scale(1.05);
+}
+
+.rain-overlay {
+  pointer-events: none;
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  z-index: 10;
+  background: transparent;
+}
+.rain-drop {
+  position: absolute;
+  top: -40px;
+  width: 10px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #00e6ff 60%, #fff 100%);
+  opacity: 0.7;
+  animation: rain-fall 2.2s cubic-bezier(.4,2,.6,1) forwards;
+}
+@keyframes rain-fall {
+  0% { top: -40px; opacity: 0.7; }
+  80% { opacity: 0.7; }
+  100% { top: 100vh; opacity: 0; }
+}
+
+.water-anim {
+  position: absolute;
+  top: 10%;
+  font-size: 2.2rem;
+  pointer-events: none;
+  animation: water-drop 2.2s cubic-bezier(.4,2,.6,1) forwards;
+  z-index: 20;
+}
+@keyframes water-drop {
+  0% { opacity: 0; top: 10%; }
+  30% { opacity: 1; top: 30%; }
+  70% { opacity: 1; top: 70%; }
+  100% { opacity: 0; top: 90%; }
+}
+
+.reminder {
+  margin-top: 1.5rem;
+  background: #fffbe6;
+  color: #ff0051;
+  border-radius: 12px;
+  padding: 1rem 2rem;
+  font-size: 1.15rem;
+  font-weight: 600;
+  box-shadow: 0 2px 12px #ff005122;
+  animation: pulse 1.2s infinite alternate;
+}
+@keyframes pulse {
+  0% { box-shadow: 0 2px 12px #ff005122; }
+  100% { box-shadow: 0 2px 32px #ff005144; }
+}
+
+.info .message {
+  margin-top: 1.1rem;
+  font-size: 1.08rem;
+  color: #ff0051;
+  font-style: italic;
+}
+.watering-history {
+  margin-top: 0.7rem;
+  font-size: 0.98rem;
+  color: #555;
+}
+.watering-history ul {
+  list-style: disc inside;
+  margin: 0.2rem 0 0 0;
+  padding: 0;
+}
+.watering-history li {
+  margin: 0;
+  padding: 0;
+} 
